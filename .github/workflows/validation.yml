@@ -1,0 +1,60 @@
+name: Auditing, linting and testing your Node npm project
+
+on:
+  workflow_call:
+    inputs:
+      working_directory:
+        description: "Directory to run npm audit in (default: repository root)"
+        required: false
+        type: string
+        default: "."
+
+      node_version:
+        description: "Node version to install (e.g., 24)"
+        required: false
+        type: string
+        default: "24"
+      
+      audit_level:
+        description: "The minimum level of vulnerability for npm audit to exit with a non-zero exit code (eg info, low, moderate, high, critical, or none)"
+        required: false
+        type: string
+        default: "low"
+      
+      post_install_script:
+        description: "Optional script to run after npm install"
+        required: false
+        type: string
+        default: ""
+
+jobs:
+  validation:
+    name: "Run npm audit, lint,and test"
+    runs-on: ubuntu-latest
+
+    steps: 
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      
+      - name: Set up node and deps
+        uses: ./action/setup
+        with:
+          working_directory: ${{ inputs.working_directory }}
+          node_version: ${{ inputs.node_version }}
+
+      - name: Run npm audit
+        uses: ./action/audit
+        with:
+          working_directory: ${{ inputs.working_directory }}
+          audit_level: ${{ inputs.audit_level }}
+      
+      - name: Run npm lint
+        uses: ./action/lint
+        with:
+          working_directory: ${{ inputs.working_directory }}
+      
+      - name: Run npm test
+        uses: ./action/test
+        with:
+          working_directory: ${{ inputs.working_directory }}
+          post_install_script: ${{ inputs.post_install_script }}
