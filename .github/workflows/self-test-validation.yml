@@ -1,0 +1,18 @@
+name: Self Test - validation workflows
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  test-valid:
+    uses: ./.github/workflows/validation.yml
+    with:
+      working_directory: "./tests/valid-app"
+      post_install_script: "npx playwright install --with-deps"

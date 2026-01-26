@@ -29,7 +29,7 @@ on:
 
 jobs:
   validation:
-    name: "Run npm audit, lint,and test"
+    name: "Run npm audit, lint, and test"
     runs-on: ubuntu-latest
 
     steps: 
@@ -37,24 +37,24 @@ jobs:
         uses: actions/checkout@v4
       
       - name: Set up node and deps
-        uses: ./action/setup
+        uses: ./actions/setup
         with:
           working_directory: ${{ inputs.working_directory }}
           node_version: ${{ inputs.node_version }}
 
       - name: Run npm audit
-        uses: ./action/audit
+        uses: ./actions/audit
         with:
           working_directory: ${{ inputs.working_directory }}
           audit_level: ${{ inputs.audit_level }}
       
       - name: Run npm lint
-        uses: ./action/lint
+        uses: ./actions/lint
         with:
           working_directory: ${{ inputs.working_directory }}
       
       - name: Run npm test
-        uses: ./action/test
+        uses: ./actions/test
         with:
           working_directory: ${{ inputs.working_directory }}
           post_install_script: ${{ inputs.post_install_script }}
