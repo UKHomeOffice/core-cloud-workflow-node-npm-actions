@@ -25,9 +25,9 @@ runs:
       uses: actions/setup-node@v6
       with:
         node-version: ${{ inputs.node_version }}
-        cache: 'npm'
 
     - name: Install Node Dependencies
       shell: bash
       working-directory: ${{ inputs.working_directory }}
-      run: npm ci
+      run: |
+        npm ci

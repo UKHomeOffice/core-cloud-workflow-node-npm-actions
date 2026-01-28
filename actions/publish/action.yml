@@ -39,7 +39,9 @@ runs:
       env:
         NODE_AUTH_TOKEN: ${{ inputs.node_access_token }}
       run: |
+        set +e
         npm publish --access=${{ inputs.access_level }}
-
         EXIT_CODE=$?
+        set -e
+        
         echo "exit_code=$EXIT_CODE" >> $GITHUB_OUTPUT

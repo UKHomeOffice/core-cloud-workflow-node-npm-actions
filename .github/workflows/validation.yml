@@ -26,11 +26,27 @@ on:
         required: false
         type: string
         default: ""
+    
+    outputs:
+      npm_audit_exit_code:
+        description: "The exit code from the npm audit command"
+        value: ${{ jobs.validation.outputs.npm_audit_exit_code }}
+      npm_lint_exit_code:
+        description: "The exit code from the npm lint command"
+        value: ${{ jobs.validation.outputs.npm_lint_exit_code }}
+      npm_test_exit_code:
+        description: "The exit code from the npm test command"
+        value: ${{ jobs.validation.outputs.npm_test_exit_code }}
 
 jobs:
   validation:
     name: "Run npm audit, lint, and test"
     runs-on: ubuntu-latest
+
+    outputs:
+      npm_audit_exit_code: ${{ steps.run_audit.outputs.npm_audit_exit_code }}
+      npm_lint_exit_code: ${{ steps.run_lint.outputs.npm_lint_exit_code }}
+      npm_test_exit_code: ${{ steps.run_test.outputs.npm_test_exit_code }}
 
     steps: 
       - name: Checkout Code
@@ -44,17 +60,20 @@ jobs:
 
       - name: Run npm audit
         uses: ./actions/audit
+        id: run_audit
         with:
           working_directory: ${{ inputs.working_directory }}
           audit_level: ${{ inputs.audit_level }}
       
       - name: Run npm lint
         uses: ./actions/lint
+        id: run_lint
         with:
           working_directory: ${{ inputs.working_directory }}
       
       - name: Run npm test
         uses: ./actions/test
+        id: run_test
         with:
           working_directory: ${{ inputs.working_directory }}
           post_install_script: ${{ inputs.post_install_script }}
