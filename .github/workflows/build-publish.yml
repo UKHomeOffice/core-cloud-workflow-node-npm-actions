@@ -18,8 +18,13 @@ on:
       should_publish:
         description: "Should the project be published"
         required: false
-        type: bool
+        type: boolean
         default: false
+    
+    secrets:
+      node_access_token:
+        description: "The npm access token to authenticate publishing"
+        required: false
 
 jobs:
   build-publish:
@@ -46,4 +51,4 @@ jobs:
         uses: ./actions/publish
         with:
           working_directory: ${{ inputs.working_directory }}
-      
+          node_access_token: ${{ secrets.node_access_token }}

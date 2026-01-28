@@ -11,8 +11,8 @@ permissions:
   contents: read
 
 jobs:
-  test-validation-workflow:
-    uses: ./.github/workflows/validation.yml
+  test-build-publish-workflow:
+    uses: ./.github/workflows/build-publish.yml
     with:
       working_directory: "./tests/valid-app"
-      post_install_script: "npx playwright install --with-deps"
+      should_publish: false
