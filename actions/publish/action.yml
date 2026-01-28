@@ -1,7 +1,6 @@
 name: Node npm publish
 description: "Run npm publish on the project after dependencies have been installed."
 
-
 inputs:
   working_directory:
     description: "Directory to run npm publish in (default: repository root)"

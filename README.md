@@ -46,6 +46,3 @@ jobs:
 ```
 
 The actions can be used in similar manner as well
-
-
-
