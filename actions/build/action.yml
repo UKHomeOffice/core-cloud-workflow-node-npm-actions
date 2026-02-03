@@ -1,0 +1,33 @@
+name: Node npm build
+description: "Run npm build on the project after dependencies have been installed."
+
+inputs:
+  working_directory:
+    description: "Directory to run npm build in (default: repository root)"
+    required: false
+    type: string
+    default: "."
+
+outputs:
+  npm_build_exit_code:
+    description: "The exit code from the npm build command"
+    value: ${{ steps.npm_build.outputs.exit_code }}
+
+runs:
+  using: "composite"
+
+  steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v6
+
+    - name: Run npm build
+      id: npm_build
+      shell: bash
+      working-directory: ${{ inputs.working_directory }}
+      run: |
+        set +e
+        npm run build
+        EXIT_CODE=$?
+        set -e
+        
+        echo "exit_code=$EXIT_CODE" >> $GITHUB_OUTPUT

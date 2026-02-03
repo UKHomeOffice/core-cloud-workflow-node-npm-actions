@@ -1,0 +1,33 @@
+name: Node npm setup
+description: "Set up Node.js environment and install dependencies."
+
+inputs:
+  working_directory:
+    description: "Directory to run npm audit in (default: repository root)"
+    required: false
+    type: string
+    default: "."
+
+  node_version:
+    description: "Node version to install (e.g., 24)"
+    required: false
+    type: string
+    default: "24"
+
+runs:
+  using: "composite"
+
+  steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v6
+
+    - name: Setup Node
+      uses: actions/setup-node@v6
+      with:
+        node-version: ${{ inputs.node_version }}
+
+    - name: Install Node Dependencies
+      shell: bash
+      working-directory: ${{ inputs.working_directory }}
+      run: |
+        npm ci
