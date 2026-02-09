@@ -28,7 +28,7 @@ Workflows can be used as
 ```yml
 jobs:
     validation:
-        uses: UKHomeOffice/core-cloud-workflow-node-npm-actions/.github/workflows/validation.yml
+        uses: UKHomeOffice/core-cloud-workflow-node-npm-actions/.github/workflows/validation.yml@main
         with:
             working_directory: "."
             node_version: "24"
@@ -36,7 +36,7 @@ jobs:
             post_install_script: ""
 
     build-publish:
-        uses: UKHomeOffice/core-cloud-workflow-node-npm-actions/.github/workflows/build-publish.yml
+        uses: UKHomeOffice/core-cloud-workflow-node-npm-actions/.github/workflows/build-publish.yml@main
         with:
             working_directory: "."
             node_version: "24"
