@@ -20,6 +20,11 @@ on:
         required: false
         type: boolean
         default: false
+      
+      registry_url:
+        description: "The npm registry URL to publish to"
+        required: true
+        type: string
     
     secrets:
       node_access_token:
@@ -40,6 +45,7 @@ jobs:
         with:
           working_directory: ${{ inputs.working_directory }}
           node_version: ${{ inputs.node_version }}
+          registry_url: ${{ inputs.registry_url }}
 
       - name: Run npm build
         uses: UKHomeOffice/core-cloud-workflow-node-npm-actions/actions/build@main
