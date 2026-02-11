@@ -17,9 +17,6 @@ runs:
   using: "composite"
 
   steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v6
-
     - name: Run npm build
       id: npm_build
       shell: bash

@@ -23,9 +23,6 @@ runs:
   using: "composite"
 
   steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v6
-
     - name: Run npm Audit
       id: npm_audit
       shell: bash
